@@ -26,8 +26,8 @@ static const Shape five_cell{Coordinate(0, 0),Coordinate(0, 1),Coordinate(0, 2),
 
 int main(int argc, const char * argv[]) {
 	
-	Grid grid(2);
-	grid.putShape(one_cell, 1, 1, Orientation::LeftNeg, Cell::Blue);
+	Grid grid(10);
+	grid.putShape(three_cell, 0, 0, Orientation::LeftNeg, Cell::Red);
 	grid.print();
     return 0;
 }
