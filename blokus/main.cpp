@@ -16,7 +16,7 @@ static const Shape one_cell{Coordinate(0, 0)};
 static const Shape two_cell{Coordinate(0, 0),Coordinate(0, 1)};
 
 
-// TODO: make 21 shapes above here
+// TODO: make 21 shapes above
 
 int main(int argc, const char * argv[]) {
 	
