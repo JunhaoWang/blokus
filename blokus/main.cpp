@@ -27,7 +27,7 @@ static const Shape five_cell{Coordinate(0, 0),Coordinate(0, 1),Coordinate(0, 2),
 int main(int argc, const char * argv[]) {
 	
 	Grid grid(2);
-	cout<<grid.putShape(one_cell, 1, 1, Orientation::LeftNeg, Cell::Blue)<<endl;
+	grid.putShape(one_cell, 1, 1, Orientation::LeftNeg, Cell::Blue);
 	grid.print();
     return 0;
 }

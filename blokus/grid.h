@@ -12,13 +12,12 @@
 
 
 enum class Cell {
-	Unoccupied,
-	Red,
-	Green,
-	Blue,
-	Yellow
+	Unoccupied = '.',
+	Red = 'R',
+	Green = 'G',
+	Blue = 'B',
+	Yellow = 'Y'
 };
-
 
 class Grid{
 public:
@@ -27,12 +26,14 @@ public:
 	
 	bool isOccupied(int row, int col);
 	bool isNotOut(int row, int col);
+	bool isOk(int row, int col);
 	Cell getCell(int row, int col);
 	Cell& getCellRef(int row, int col);
+	char getCellValue(Cell c);
 	
 	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c);
 	
-	void print() const;
+	void print();
 	
 	Grid(const Grid &) = delete;
 	Grid(Grid&&) = delete;

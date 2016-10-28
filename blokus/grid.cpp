@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <cassert>
+#include <iostream>
 #include "grid.h"
 #include "shape.h"
 
@@ -25,7 +26,6 @@ Grid::~Grid(){
 }
 
 bool Grid::isOccupied(int row, int col) {
-	std::cout<<"isOccupied "<<row<<" "<<col<<std::endl;
 	return getCell(row, col) != Cell::Unoccupied;
 }
 
@@ -33,17 +33,19 @@ bool Grid::isNotOut(int row, int col) {
 	return row >= 0 && row < size && col >= 0 && col < size;
 }
 
+bool Grid::isOk(int row, int col) {
+	return isNotOut(row, col) && !isOccupied(row, col);
+}
+
 Cell Grid::getCell(int row, int col) {
 	assert(row >= 0 && row < size);
 	assert(col >= 0 && col < size);
-	std::cout<<"getCell "<<row<<" "<<col<<std::endl;
 	return grid[row*size+col];
 }
 
 Cell& Grid::getCellRef(int row, int col) {
 	assert(row >= 0 && row < size);
 	assert(col >= 0 && col < size);
-	std::cout<<"getCellRef "<<row<<" "<<col<<std::endl;
 	return grid[row*size+col];
 }
 
@@ -51,13 +53,10 @@ Cell& Grid::getCellRef(int row, int col) {
 bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
-	std::cout<<"putShape Move at "<<row<<" "<<col<<std::endl;
 	for (auto i:holder.data){
-		std::cout<<"putShape at "<<i.row<<" "<<i.col<<std::endl;
-		if (isOccupied(i.row,i.col)){
-			std::cout<<"putShape at "<<row<<" "<<col<<std::endl;
+		if (!isOk(i.row,i.col)){
 			return false;
-		}
+		}		
 	}
 	for (auto i:holder.data){
 		getCellRef(i.row, i.col) = c;
@@ -65,11 +64,29 @@ bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
 	return true;
 }
 
+char Grid::getCellValue(Cell c){
+	switch (c) {
+		case Cell::Unoccupied:
+			return '.';
+		case Cell::Red:
+			return 'R';
+		case Cell::Green:
+			return 'G';
+		case Cell::Blue:
+			return 'B';
+		case Cell::Yellow:
+			return 'Y';
+		default:
+			abort();
+	}
+}
+
 // Todo: improve print grid
-void Grid::print() const{
+void Grid::print(){
+	
 	for (int i = 0; i < size; ++i){
 		for (int j = 0; j < size; ++j){
-			std::cout<<j;
+			std::cout << getCellValue(getCell(i, j));
 		}
 		std::cout<<'\n';
 	}

@@ -18,7 +18,6 @@ Shape::Shape(std::initializer_list<Coordinate> coords){
 Shape Shape::move(Coordinate coord) const{
 	Shape holder (*this);
 	for (auto &i: holder.data){
-		std::cout<<"Move coord "<<i.row<<" "<<i.col<<std::endl;
 		i.row += coord.row;
 		i.col += coord.col;
 	}
