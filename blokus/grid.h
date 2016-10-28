@@ -10,6 +10,7 @@
 #define grid_h
 #include "shape.h"
 
+
 enum class Cell {
 	Unoccupied,
 	Red,
@@ -24,10 +25,14 @@ public:
 	Grid(int sz);
 	~Grid();
 	
-	bool isOccupied(int row, int col) const;
-	Cell getCell(int row, int col) const;
+	bool isOccupied(int row, int col);
+	bool isNotOut(int row, int col);
+	Cell getCell(int row, int col);
+	Cell& getCellRef(int row, int col);
 	
-	bool putShape(const Shape& sp, int row, int col, Orientation o);
+	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c);
+	
+	void print() const;
 	
 	Grid(const Grid &) = delete;
 	Grid(Grid&&) = delete;

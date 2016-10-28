@@ -10,6 +10,8 @@
 #define shape_h
 
 #include <vector>
+#include <iostream>
+#include <type_traits>
 
 enum class Orientation {
 	UpPos,
@@ -34,7 +36,7 @@ public:
 	Shape transform(Orientation o) const;
 	Shape move(Coordinate coord) const;
 	
-private:
+//private:
 	std::vector<Coordinate> data;
 	
 };
