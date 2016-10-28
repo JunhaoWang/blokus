@@ -25,14 +25,14 @@ enum class Orientation {
 struct Coordinate {
 	int row;
 	int col;
-	Coordinate(int r, int c) : row(r), col(c) {}
+	Coordinate(int r, int c) : row(r), col(c) {}	
 };
 
 class Shape{
 public:
 	Shape(std::initializer_list<Coordinate> coords);
-	Shape transform(Orientation o);
-	Shape move(Coordinate coord);
+	Shape transform(Orientation o) const;
+	Shape move(Coordinate coord) const;
 	
 private:
 	std::vector<Coordinate> data;
