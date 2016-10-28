@@ -1,1 +1,3 @@
-*.xcodeproj
+blokus.xcodeproj
+.DS_Store
+.git
