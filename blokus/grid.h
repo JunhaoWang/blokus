@@ -35,6 +35,7 @@ public:
 	bool checkShape(const Shape& sp, int row, int col, Orientation o, Cell c);
 	
 	void print();
+	void win();
 	
 	Grid(const Grid &) = delete;
 	Grid(Grid&&) = delete;

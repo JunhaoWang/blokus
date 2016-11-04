@@ -54,10 +54,15 @@ int main(int argc, const char * argv[]) {
 	map<int, vector<Shape>, greater<int>> m {{1,one}, {2,two}, {3,three}, {4,four}, {5,five}};
 	
 	Player red (&grid, Cell::Red, m);
-
-	while (red.play()){
+	Player blue (&grid, Cell::Blue, m);
+	Player green (&grid, Cell::Green, m);
+	Player yellow (&grid, Cell::Yellow, m);
+	
+	while (red.play() && blue.play() && green.play() && yellow.play()){
 		grid.print();
 		cout<<'\n';
 	}
+	grid.print();
+	cout<<"game finished"<<endl;
     return 0;
 }

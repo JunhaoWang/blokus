@@ -9,7 +9,10 @@
 #include <stdio.h>
 #include <cstring>
 #include <cassert>
+#include <string>
 #include <iostream>
+#include <map>
+#include <algorithm>
 #include "grid.h"
 #include "shape.h"
 
@@ -23,6 +26,32 @@ Grid::Grid(int sz): size(sz){
 Grid::~Grid(){
 	delete[] grid;
 	grid = nullptr;
+}
+
+struct wincomp {
+	bool operator()(std::pair<std::string, int> a, std::pair<std::string, int> b){
+		return a.second < b.second;
+	}
+};
+
+void Grid::win(){
+//	std::map<std::string, int> counter;
+//	for (int i = 0; i < size*size; ++i){
+//		if (grid[i] == Cell::Blue){
+//			counter["blue"]++;
+//		}
+//		else if (grid[i] == Cell::Red){
+//			counter["red"]++;
+//		}
+//		else if (grid[i] == Cell::Yellow){
+//			counter["yellow"]++;
+//		}
+//		else if (grid[i] == Cell::Green){
+//			counter["green"]++;
+//		}
+//	}
+//	std::sort(counter.begin(), counter.end(), wincomp());
+//	std::cout<<counter.begin()->first<<" win"<<std::endl;
 }
 
 bool Grid::isOccupied(int row, int col) {

@@ -45,7 +45,9 @@ public:
 	Shape(std::initializer_list<Coordinate> coords, std::string namein);
 	Shape transform(Orientation o) const;
 	Shape move(Coordinate coord) const;
-	
+	void print(){
+		std::cout<<name<<std::endl<<std::endl;
+	}
 //private:
 	std::vector<Coordinate> data;
 	std::string name;
