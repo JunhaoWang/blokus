@@ -14,13 +14,13 @@
 #include "player.h"
 
 bool Player::play(){
-	for (int i = 0; i < grid->size; ++i){
-		for (auto skey: shapes){
+	for (int i = 0; i < grid->size*grid->size; ++i){
+		for (auto& skey: shapes){
 			for (auto s = skey.second.begin(); s != skey.second.end(); ++s){
 				for (auto o: orients){
 					if (grid->checkShape(*s, i/grid->size, i%grid->size, o, cell)){
 						grid->putShape(*s, i/grid->size, i%grid->size, o, cell);
-						s = skey.second.erase(s);
+						skey.second.erase(s);
 						return true;
 					}
 				}

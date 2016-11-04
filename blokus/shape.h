@@ -10,6 +10,7 @@
 #define shape_h
 
 #include <vector>
+#include <string>
 
 enum class Orientation {
 	UpPos,
@@ -41,12 +42,13 @@ struct Coordinate {
 
 class Shape{
 public:
-	Shape(std::initializer_list<Coordinate> coords);
+	Shape(std::initializer_list<Coordinate> coords, std::string namein);
 	Shape transform(Orientation o) const;
 	Shape move(Coordinate coord) const;
 	
 //private:
 	std::vector<Coordinate> data;
+	std::string name;
 	
 };
 

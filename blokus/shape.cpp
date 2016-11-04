@@ -11,7 +11,7 @@
 #include <vector>
 #include "shape.h"
 
-Shape::Shape(std::initializer_list<Coordinate> coords){
+Shape::Shape(std::initializer_list<Coordinate> coords, std::string namein): name(namein){
 	data = std::vector<Coordinate> (coords);
 }
 

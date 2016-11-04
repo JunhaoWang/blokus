@@ -23,11 +23,10 @@ struct Move{
 	Move(Shape &sin, int rowin, int colin, Orientation oin):s(sin),row(rowin),col(colin),o(oin){}
 };
 
+
 class Player{
 public:
-	Player(Grid *gin):grid(gin) {
-		// initialize shapes
-	};
+	Player(Grid *gin, Cell cellin, std::map<int, std::vector<Shape>, std::greater<int>> shapesin): grid(gin),cell(cellin),shapes(shapesin) {};
 	
 	bool play();
 	
@@ -35,7 +34,15 @@ public:
 	Cell cell;
 	std::map<int, std::vector<Shape>, std::greater<int>> shapes;
 	std::vector<Move> moves;
-	std::vector<Orientation> orients;
+	std::vector<Orientation> orients = {Orientation::UpPos,
+		Orientation::UpNeg,
+		Orientation::RightPos,
+		Orientation::RightNeg,
+		Orientation::DownPos,
+		Orientation::DownNeg,
+		Orientation::LeftPos,
+		Orientation::LeftNeg};
+	
 };
 
 
