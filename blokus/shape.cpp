@@ -38,6 +38,11 @@ Shape Shape::transform(Orientation o) const{
 					 #
 */
 		case Orientation::UpPos:
+			for (auto &i:holder.data){
+				i.rotate();
+				i.rotate();
+				i.rotate();
+			}
 			return holder;
 			
 ////////////////////////////////////////////
@@ -50,6 +55,12 @@ Shape Shape::transform(Orientation o) const{
 					 #
 */
 		case Orientation::UpNeg:
+			for (auto &i:holder.data){
+				i.rotate();
+				i.rotate();
+				i.rotate();
+				i.flipx();
+			}
 			return holder;
 			break;
 
@@ -62,6 +73,9 @@ Shape Shape::transform(Orientation o) const{
 */
 		
 		case Orientation::RightPos:
+			for (auto &i:holder.data){
+				i.flipy();
+			}
 			return holder;
 			break;
 			
@@ -89,8 +103,9 @@ Shape Shape::transform(Orientation o) const{
 			
 			
 		case Orientation::DownPos:
-			for (auto& i: holder.data){
-				i.row *= -1;
+			for (auto &i:holder.data){
+				i.rotate();
+				i.flipx();
 			}
 			return holder;
 			break;
@@ -106,6 +121,9 @@ Shape Shape::transform(Orientation o) const{
 */
 			
 		case Orientation::DownNeg:
+			for (auto &i:holder.data){
+				i.rotate();
+			}
 			return holder;
 			break;
 			
@@ -118,6 +136,10 @@ Shape Shape::transform(Orientation o) const{
 */
 			
 		case Orientation::LeftPos:
+			for (auto &i:holder.data){
+				i.rotate();
+				i.rotate();
+			}
 			return holder;
 			break;
 			
@@ -130,6 +152,11 @@ Shape Shape::transform(Orientation o) const{
 */
 			
 		case Orientation::LeftNeg:
+			for (auto &i:holder.data){
+				i.rotate();
+				i.rotate();
+				i.flipy();
+			}
 			return holder;
 			break;
 			

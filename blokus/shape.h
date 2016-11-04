@@ -25,7 +25,18 @@ enum class Orientation {
 struct Coordinate {
 	int row;
 	int col;
-	Coordinate(int r, int c) : row(r), col(c) {}	
+	Coordinate(int r, int c) : row(r), col(c) {}
+	void flipx(){
+		col *= -1;
+	}
+	void flipy(){
+		row *= -1;
+	}
+	void rotate(){
+		int holder = row;
+		row = col;
+		col = -holder;
+	}
 };
 
 class Shape{
