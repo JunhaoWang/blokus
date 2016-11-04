@@ -39,7 +39,7 @@ public:
 	Grid(const Grid &) = delete;
 	Grid(Grid&&) = delete;
 	Grid &operator=(const Grid &) = delete;
-private:
+//private:
 	int size;
 	Cell *grid;
 	

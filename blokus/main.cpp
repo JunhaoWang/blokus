@@ -12,6 +12,7 @@
 
 #include "grid.h"
 #include "shape.h"
+#include "player.h"
 
 using namespace std;
 
