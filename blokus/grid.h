@@ -32,6 +32,7 @@ public:
 	char getCellValue(Cell c);
 	
 	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c);
+	bool checkShape(const Shape& sp, int row, int col, Orientation o, Cell c);
 	
 	void print();
 	

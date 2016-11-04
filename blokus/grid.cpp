@@ -64,6 +64,18 @@ bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
 	return true;
 }
 
+// Todo: put shape into grid (improve to private holder.data later)
+bool Grid::checkShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
+	Shape holder (sp);
+	holder = holder.transform(o).move(Coordinate(row, col));
+	for (auto i:holder.data){
+		if (!isOk(i.row,i.col)){
+			return false;
+		}
+	}
+	return true;
+}
+
 char Grid::getCellValue(Cell c){
 	switch (c) {
 		case Cell::Unoccupied:
