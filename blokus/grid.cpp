@@ -53,6 +53,12 @@ void Grid::win(){
 			winner = it->first;
 		}
 	}
+	for (auto it = ++counter.begin(); it != counter.end(); ++it){
+		if (maxnum == it->second){
+			std::cout<<"tie"<<'\n'<<std::endl;
+			return;
+		}
+	}
 	std::cout<<winner<<" win"<<'\n'<<"game finished"<<'\n'<<std::endl;
 }
 
@@ -89,9 +95,37 @@ bool Grid::isNotSurface(int row, int col, Cell c) {
 	return result == 0;
 }
 
-// ?
+bool Grid::isCorner(int row, int col, Cell c){
+	int result = 0;
+	if (isNotOut(row - 1, col - 1)){
+		if (getCell(row - 1, col - 1) == c){
+			result += 1;
+		}
+	}
+	if (isNotOut(row - 1, col + 1)){
+		if (getCell(row - 1, col + 1) == c){
+			result += 1;
+		}
+	}
+	if (isNotOut(row + 1, col - 1)){
+		if (getCell(row + 1, col - 1) == c){
+			result += 1;
+		}
+	}
+	if (isNotOut(row + 1, col + 1)){
+		if (getCell(row + 1, col + 1) == c){
+			result += 1;
+		}
+	}
+	return result > 0;
+}
+
 bool Grid::isOk(int row, int col, Cell c) {
-	return isNotOut(row, col) && !isOccupied(row, col) && isNotSurface(row, col, c);
+	return isNotOut(row, col) && !isOccupied(row, col) && isNotSurface(row, col, c) && isCorner(row, col, c);
+}
+
+bool Grid::firstisOk(int row, int col, Cell c){
+	return isNotOut(row, col);
 }
 
 Cell Grid::getCell(int row, int col) {
@@ -107,11 +141,11 @@ Cell& Grid::getCellRef(int row, int col) {
 }
 
 // Todo: put shape into grid (improve to private holder.data later)
-bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
+bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func) {
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
 	for (auto i:holder.data){
-		if (!isOk(i.row,i.col,c)){
+		if (!func(i.row,i.col,c,this)){
 			return false;
 		}		
 	}
@@ -122,11 +156,11 @@ bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
 }
 
 // Todo: put shape into grid (improve to private holder.data later)
-bool Grid::checkShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
+bool Grid::checkShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func) {
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
 	for (auto i:holder.data){
-		if (!isOk(i.row,i.col,c)){
+		if (!func(i.row,i.col,c,this)){
 			return false;
 		}
 	}

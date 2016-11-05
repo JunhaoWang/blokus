@@ -15,6 +15,13 @@
 #include "shape.h"
 #include "grid.h"
 
+enum class Corner{
+	Upleft,
+	Upright,
+	Downleft,
+	Downright
+};
+
 struct Move{
 	Shape s;
 	int row;
@@ -28,7 +35,9 @@ class Player{
 public:
 	Player(Grid *gin, Cell cellin, std::map<int, std::vector<Shape>, std::greater<int>> shapesin): grid(gin),cell(cellin),shapes(shapesin) {};
 	
-	bool play();
+	bool play(std::function<bool(int,int,Cell,Grid* g)> func);
+	bool playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> func);
+	void initplay(Corner c, int size, std::function<bool(int,int,Cell,Grid*)> func);
 	
 	Grid *grid;
 	Cell cell;

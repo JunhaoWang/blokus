@@ -42,9 +42,17 @@ static const Shape lshapebigmiddle({Coordinate(0, 0),Coordinate(0, 1),Coordinate
 static const Shape lshapesmallmiddle({Coordinate(0, 0),Coordinate(0, 1),Coordinate(0, 2),Coordinate(1, 1)},"lshapesmallmiddle");
 
 
+bool isOk(int row, int col, Cell c, Grid* g) {
+	return g->isOk(row, col, c);
+}
+
+bool firstisOk(int row, int col, Cell c, Grid *g){
+	return g->firstisOk(row, col, c);
+}
+
 int main(int argc, const char * argv[]) {
-	
-	Grid grid(10);
+	int s = 30;
+	Grid* grid = new Grid(s);
 	vector<Shape> one {one_cell};
 	vector<Shape> two {two_cell};
 	vector<Shape> three {three_cell, boomerangsmall};
@@ -53,17 +61,22 @@ int main(int argc, const char * argv[]) {
 	
 	map<int, vector<Shape>, greater<int>> m {{1,one}, {2,two}, {3,three}, {4,four}, {5,five}};
 	
-	Player red (&grid, Cell::Red, m);
-//	Player blue (&grid, Cell::Blue, m);
-//	Player green (&grid, Cell::Green, m);
-//	Player yellow (&grid, Cell::Yellow, m);
+	Player red (grid, Cell::Red, m);
+	Player blue (grid, Cell::Blue, m);
+	Player green (grid, Cell::Green, m);
+	Player yellow (grid, Cell::Yellow, m);
 	
-//	while (red.play() && blue.play() && green.play() && yellow.play()){
-	while (red.play()){
-		grid.print();
+	red.initplay(Corner::Upleft, s, firstisOk);
+	blue.initplay(Corner::Upright, s, firstisOk);
+	green.initplay(Corner::Downleft, s, firstisOk);
+	yellow.initplay(Corner::Downright, s, firstisOk);
+	
+//	while (red.play(isOk) && blue.play(isOk) && green.play(isOk) && yellow.play(isOk)){
+	while (red.play(isOk)){
+		grid->print();
 		cout<<'\n';
 	}
-	grid.print();
-	grid.win();
+	grid->print();
+	grid->win();
     return 0;
 }

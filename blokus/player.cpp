@@ -13,14 +13,29 @@
 
 #include "player.h"
 
-bool Player::play(){
-	
+bool Player::playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> func){
+	for (auto& skey: shapes){
+		for (auto s = skey.second.begin(); s != skey.second.end(); ++s){
+			for (auto o: orients){
+				if (grid->checkShape(*s, row, col, o, cell, func)){
+					grid->putShape(*s, row, col, o, cell, func);
+					skey.second.erase(s);
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+
+bool Player::play(std::function<bool(int,int,Cell,Grid*)> func){
 	for (auto& skey: shapes){
 		for (auto s = skey.second.begin(); s != skey.second.end(); ++s){
 			for (auto o: orients){
 				for (int i = 0; i < grid->size*grid->size; ++i){
-					if (grid->checkShape(*s, i/grid->size, i%grid->size, o, cell)){
-						grid->putShape(*s, i/grid->size, i%grid->size, o, cell);
+					if (grid->checkShape(*s, i/grid->size, i%grid->size, o, cell, func)){
+						grid->putShape(*s, i/grid->size, i%grid->size, o, cell, func);
 						skey.second.erase(s);
 						return true;
 					}
@@ -29,4 +44,21 @@ bool Player::play(){
 		}
 	}
 	return false;
+}
+
+void Player::initplay(Corner c, int size, std::function<bool(int,int,Cell,Grid*)> func){
+	switch (c){
+		case Corner::Upleft:
+			playat(0, 0, func);
+			break;
+		case Corner::Upright:
+			playat(0, size - 1, func);
+			break;
+		case Corner::Downleft:
+			playat(size - 1, 0, func);
+			break;
+		case Corner::Downright:
+			playat(size - 1, size - 1, func);
+			break;
+	}
 }

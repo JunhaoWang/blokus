@@ -27,13 +27,17 @@ public:
 	bool isOccupied(int row, int col);
 	bool isNotOut(int row, int col);
 	bool isNotSurface(int row, int col, Cell c);
+	bool isCorner(int row, int col, Cell c);
+	
 	bool isOk(int row, int col, Cell c);
+	bool firstisOk(int row, int col, Cell c);
+	
 	Cell getCell(int row, int col);
 	Cell& getCellRef(int row, int col);
 	char getCellValue(Cell c);
 	
-	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c);
-	bool checkShape(const Shape& sp, int row, int col, Orientation o, Cell c);
+	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func);
+	bool checkShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func);
 	
 	void print();
 	void win();
