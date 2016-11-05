@@ -20,17 +20,11 @@ do some other projects (such as flying Alexa networks with emotion detection [al
 # development tasks 
 ## stage 1
 AI agent - DONE
-<<<<<<< HEAD
 human player interface - NOT STARTED
-Refactor code for future dev - NOT STARTED
-=======
-
-human player interface - NOT STARTED
-
 Refactor code for future dev - NOT STARTED
 
 # how to run
 g++ -std=c++11 -Wall -Werror -pedantic -Wextra -Wconversion -O3 main.cpp grid.cpp shape.cpp player.cpp game.cpp -o blokus && ./blokus
->>>>>>> f7df9b9adb92aaa90675bb8d1fce7153591c3f25
+
 
 
