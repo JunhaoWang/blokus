@@ -19,8 +19,8 @@ do some other projects (such as flying Alexa networks with emotion detection [al
 
 # development tasks 
 ## stage 1
-### AI agent - DONE
-### human player interface - NOT STARTED
-### Refactor code for future dev - NOT STARTED
+AI agent - DONE
+human player interface - NOT STARTED
+Refactor code for future dev - NOT STARTED
 
 
