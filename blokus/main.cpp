@@ -72,7 +72,7 @@ int main(int argc, const char * argv[]) {
 	yellow.initplay(Corner::Downright, s, firstisOk, false);
 	
 	while (red.play(isOk, true) && blue.play(isOk, true) && green.play(isOk, true) && yellow.play(isOk, true)){
-//	while (red.play(isOk)){
+//	while (red.play(isOk,true)){
 		grid->print();
 		cout<<'\n';
 	}

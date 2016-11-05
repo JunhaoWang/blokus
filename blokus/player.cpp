@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include <typeinfo>
+#include <ctime>
 
 #include "player.h"
 
@@ -47,14 +48,12 @@ bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck
 			for (auto o: orients){
 				for (int i = 0; i < grid->size*grid->size; ++i){
 					if (grid->checkShape(*s, i/grid->size, i%grid->size, o, cell, func, cornercheck)){
-						
 						moves.push_back(Move(s, i/grid->size, i%grid->size, o));
 						
 //						grid->putShape(*s, i/grid->size, i%grid->size, o, cell, func, cornercheck);
-						grid->putShape(*moves[0].s, moves[0].row, moves[0].col, moves[0].o, cell, func, cornercheck);
-						moves.clear();
-						skey.second.erase(s);
-						return true;
+//						grid->putShape(*moves[0].s, moves[0].row, moves[0].col, moves[0].o, cell, func, cornercheck);
+//						skey.second.erase(s);
+//						return true;
 						
 						
 					}
@@ -63,16 +62,18 @@ bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck
 		}
 	}
 	
-//	if (!moves.empty()){
-//		auto m = moves.begin();
-//		grid->putShape(*m->s, m->row, m->col, m->o, cell, func, cornercheck);
-//		int num = (int)(*(m->s)).data.size();
-//		shapes[num].erase(m->s);
-//		return true;
-//	}
+	std::cout<<"found "<<moves.size()<<" moves"<<'\n';
+	
+	if (!moves.empty()){
+		srand((int)time(NULL));
+		auto m = moves[rand()%moves.size()];
+		grid->putShape(*m.s, m.row, m.col, m.o, cell, func, cornercheck);
+		int num = (int)(*(m.s)).data.size();
+		shapes[num].erase(m.s);
+		moves.clear();
+		return true;
+	}
 
-
-	moves.clear();
 	return false;
 }
 
