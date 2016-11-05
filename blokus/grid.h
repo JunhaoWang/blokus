@@ -36,8 +36,8 @@ public:
 	Cell& getCellRef(int row, int col);
 	char getCellValue(Cell c);
 	
-	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func);
-	bool checkShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func);
+	bool putShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck);
+	bool checkShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck);
 	
 	void print();
 	void win();

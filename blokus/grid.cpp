@@ -53,12 +53,6 @@ void Grid::win(){
 			winner = it->first;
 		}
 	}
-	for (auto it = ++counter.begin(); it != counter.end(); ++it){
-		if (maxnum == it->second){
-			std::cout<<"tie"<<'\n'<<std::endl;
-			return;
-		}
-	}
 	std::cout<<winner<<" win"<<'\n'<<"game finished"<<'\n'<<std::endl;
 }
 
@@ -121,7 +115,7 @@ bool Grid::isCorner(int row, int col, Cell c){
 }
 
 bool Grid::isOk(int row, int col, Cell c) {
-	return isNotOut(row, col) && !isOccupied(row, col) && isNotSurface(row, col, c) && isCorner(row, col, c);
+	return isNotOut(row, col) && !isOccupied(row, col) && isNotSurface(row, col, c);
 }
 
 bool Grid::firstisOk(int row, int col, Cell c){
@@ -141,13 +135,11 @@ Cell& Grid::getCellRef(int row, int col) {
 }
 
 // Todo: put shape into grid (improve to private holder.data later)
-bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func) {
+bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck) {
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
-	for (auto i:holder.data){
-		if (!func(i.row,i.col,c,this)){
-			return false;
-		}		
+	if (!checkShape(sp, row, col, o, c, func, cornercheck)){
+		return false;
 	}
 	for (auto i:holder.data){
 		getCellRef(i.row, i.col) = c;
@@ -156,11 +148,20 @@ bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c, st
 }
 
 // Todo: put shape into grid (improve to private holder.data later)
-bool Grid::checkShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func) {
+bool Grid::checkShape(const Shape& sp, int row, int col, Orientation o, Cell c, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck) {
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
+	int result = 0;
 	for (auto i:holder.data){
 		if (!func(i.row,i.col,c,this)){
+			return false;
+		}
+		if (isCorner(row, col, c)){
+			result += 1;
+		}
+	}
+	if (cornercheck){
+		if (result == 0){
 			return false;
 		}
 	}

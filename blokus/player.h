@@ -35,9 +35,9 @@ class Player{
 public:
 	Player(Grid *gin, Cell cellin, std::map<int, std::vector<Shape>, std::greater<int>> shapesin): grid(gin),cell(cellin),shapes(shapesin) {};
 	
-	bool play(std::function<bool(int,int,Cell,Grid* g)> func);
-	bool playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> func);
-	void initplay(Corner c, int size, std::function<bool(int,int,Cell,Grid*)> func);
+	bool play(std::function<bool(int,int,Cell,Grid* g)> func, bool cornercheck);
+	bool playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck);
+	void initplay(Corner c, int size, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck);
 	
 	Grid *grid;
 	Cell cell;

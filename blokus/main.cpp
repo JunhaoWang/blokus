@@ -66,13 +66,13 @@ int main(int argc, const char * argv[]) {
 	Player green (grid, Cell::Green, m);
 	Player yellow (grid, Cell::Yellow, m);
 	
-	red.initplay(Corner::Upleft, s, firstisOk);
-	blue.initplay(Corner::Upright, s, firstisOk);
-	green.initplay(Corner::Downleft, s, firstisOk);
-	yellow.initplay(Corner::Downright, s, firstisOk);
+	red.initplay(Corner::Upleft, s, firstisOk, false);
+	blue.initplay(Corner::Upright, s, firstisOk, false);
+	green.initplay(Corner::Downleft, s, firstisOk, false);
+	yellow.initplay(Corner::Downright, s, firstisOk, false);
 	
-//	while (red.play(isOk) && blue.play(isOk) && green.play(isOk) && yellow.play(isOk)){
-	while (red.play(isOk)){
+	while (red.play(isOk, true) && blue.play(isOk, true) && green.play(isOk, true) && yellow.play(isOk, true)){
+//	while (red.play(isOk)){
 		grid->print();
 		cout<<'\n';
 	}
