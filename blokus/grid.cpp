@@ -59,9 +59,11 @@ void Grid::win(){
 	
 	if (counter["blue"]==counter["red"] && counter["green"]==counter["yellow"] && counter["green"]==counter["red"]){
 		std::cout<<"tie"<<'\n'<<std::endl;
+		std::cout<<"==============================="<<'\n'<<'\n'<<std::endl;
 		return;
 	}
 	std::cout<<winner<<" win"<<'\n'<<'\n'<<"game finished"<<'\n'<<std::endl;
+	std::cout<<"==============================="<<'\n'<<'\n'<<std::endl;
 }
 
 bool Grid::isOccupied(int row, int col) {

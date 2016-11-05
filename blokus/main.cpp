@@ -14,6 +14,7 @@
 #include "grid.h"
 #include "shape.h"
 #include "player.h"
+#include "game.h"
 
 using namespace std;
 
@@ -42,17 +43,19 @@ static const Shape lshapebigmiddle({Coordinate(0, 0),Coordinate(0, 1),Coordinate
 static const Shape lshapesmallmiddle({Coordinate(0, 0),Coordinate(0, 1),Coordinate(0, 2),Coordinate(1, 1)},"lshapesmallmiddle");
 
 
-bool isOk(int row, int col, Cell c, Grid* g) {
-	return g->isOk(row, col, c);
-}
-
-bool firstisOk(int row, int col, Cell c, Grid *g){
-	return g->firstisOk(row, col, c);
-}
+//bool isOk(int row, int col, Cell c, Grid* g) {
+//	return g->isOk(row, col, c);
+//}
+//
+//bool firstisOk(int row, int col, Cell c, Grid *g){
+//	return g->firstisOk(row, col, c);
+//}
 
 int main(int argc, const char * argv[]) {
 	int s = 20;
-	Grid* grid = new Grid(s);
+	bool verbose = true;
+	bool slow = true;
+//	Grid* grid = new Grid(s);
 	vector<Shape> one {one_cell};
 	vector<Shape> two {two_cell};
 	vector<Shape> three {three_cell, boomerangsmall};
@@ -61,22 +64,20 @@ int main(int argc, const char * argv[]) {
 	
 	map<int, vector<Shape>, greater<int>> m {{1,one}, {2,two}, {3,three}, {4,four}, {5,five}};
 	
-	Player red (grid, Cell::Red, m);
-	Player blue (grid, Cell::Blue, m);
-	Player green (grid, Cell::Green, m);
-	Player yellow (grid, Cell::Yellow, m);
+	int numgame = 1;
 	
-	red.initplay(Corner::Upleft, s, firstisOk, false);
-	blue.initplay(Corner::Upright, s, firstisOk, false);
-	green.initplay(Corner::Downleft, s, firstisOk, false);
-	yellow.initplay(Corner::Downright, s, firstisOk, false);
-	
-	while (red.play(isOk, true) && blue.play(isOk, true) && green.play(isOk, true) && yellow.play(isOk, true)){
-//	while (red.play(isOk,true)){
-		grid->print();
-		cout<<'\n';
+	while (true){
+		cout<<"========= GAME "<<numgame<<" =========="<<'\n'<<'\n';
+		Grid *grid = new Grid(s);
+		Player red (grid, Cell::Red, m);
+		Player blue (grid, Cell::Blue, m);
+		Player green (grid, Cell::Green, m);
+		Player yellow (grid, Cell::Yellow, m);
+		Game game (grid,red,green,blue,yellow,verbose,slow);
+		game.play();
+		numgame++;
 	}
-	grid->print();
-	grid->win();
+	
+	
     return 0;
 }
