@@ -21,7 +21,6 @@ bool Player::play(){
 				for (int i = 0; i < grid->size*grid->size; ++i){
 					if (grid->checkShape(*s, i/grid->size, i%grid->size, o, cell)){
 						grid->putShape(*s, i/grid->size, i%grid->size, o, cell);
-						s->print();
 						skey.second.erase(s);
 						return true;
 					}

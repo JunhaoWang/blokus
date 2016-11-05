@@ -26,7 +26,8 @@ public:
 	
 	bool isOccupied(int row, int col);
 	bool isNotOut(int row, int col);
-	bool isOk(int row, int col);
+	bool isNotSurface(int row, int col, Cell c);
+	bool isOk(int row, int col, Cell c);
 	Cell getCell(int row, int col);
 	Cell& getCellRef(int row, int col);
 	char getCellValue(Cell c);

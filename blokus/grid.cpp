@@ -11,8 +11,8 @@
 #include <cassert>
 #include <string>
 #include <iostream>
-#include <map>
 #include <algorithm>
+#include <map>
 #include "grid.h"
 #include "shape.h"
 
@@ -28,30 +28,32 @@ Grid::~Grid(){
 	grid = nullptr;
 }
 
-struct wincomp {
-	bool operator()(std::pair<std::string, int> a, std::pair<std::string, int> b){
-		return a.second < b.second;
-	}
-};
 
 void Grid::win(){
-//	std::map<std::string, int> counter;
-//	for (int i = 0; i < size*size; ++i){
-//		if (grid[i] == Cell::Blue){
-//			counter["blue"]++;
-//		}
-//		else if (grid[i] == Cell::Red){
-//			counter["red"]++;
-//		}
-//		else if (grid[i] == Cell::Yellow){
-//			counter["yellow"]++;
-//		}
-//		else if (grid[i] == Cell::Green){
-//			counter["green"]++;
-//		}
-//	}
-//	std::sort(counter.begin(), counter.end(), wincomp());
-//	std::cout<<counter.begin()->first<<" win"<<std::endl;
+	std::map<std::string, int> counter;
+	for (int i = 0; i < size*size; ++i){
+		if (grid[i] == Cell::Blue){
+			counter["blue"]++;
+		}
+		else if (grid[i] == Cell::Red){
+			counter["red"]++;
+		}
+		else if (grid[i] == Cell::Yellow){
+			counter["yellow"]++;
+		}
+		else if (grid[i] == Cell::Green){
+			counter["green"]++;
+		}
+	}
+	int maxnum = 0;
+	std::string winner;
+	for (auto it = counter.begin(); it != counter.end(); ++it){
+		if (maxnum < it->second){
+			maxnum = it->second;
+			winner = it->first;
+		}
+	}
+	std::cout<<winner<<" win"<<'\n'<<"game finished"<<'\n'<<std::endl;
 }
 
 bool Grid::isOccupied(int row, int col) {
@@ -62,8 +64,34 @@ bool Grid::isNotOut(int row, int col) {
 	return row >= 0 && row < size && col >= 0 && col < size;
 }
 
-bool Grid::isOk(int row, int col) {
-	return isNotOut(row, col) && !isOccupied(row, col);
+bool Grid::isNotSurface(int row, int col, Cell c) {
+	int result = 0;
+	if (isNotOut(row - 1, col)){
+		if (getCell(row - 1, col) == c){
+			result += 1;
+		}
+	}
+	if (isNotOut(row + 1, col)){
+		if (getCell(row + 1, col) == c){
+			result += 1;
+		}
+	}
+	if (isNotOut(row, col + 1)){
+		if (getCell(row, col + 1) == c){
+			result += 1;
+		}
+	}
+	if (isNotOut(row, col - 1)){
+		if (getCell(row, col - 1) == c){
+			result += 1;
+		}
+	}
+	return result == 0;
+}
+
+// ?
+bool Grid::isOk(int row, int col, Cell c) {
+	return isNotOut(row, col) && !isOccupied(row, col) && isNotSurface(row, col, c);
 }
 
 Cell Grid::getCell(int row, int col) {
@@ -83,7 +111,7 @@ bool Grid::putShape(const Shape& sp, int row, int col, Orientation o, Cell c) {
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
 	for (auto i:holder.data){
-		if (!isOk(i.row,i.col)){
+		if (!isOk(i.row,i.col,c)){
 			return false;
 		}		
 	}
@@ -98,7 +126,7 @@ bool Grid::checkShape(const Shape& sp, int row, int col, Orientation o, Cell c) 
 	Shape holder (sp);
 	holder = holder.transform(o).move(Coordinate(row, col));
 	for (auto i:holder.data){
-		if (!isOk(i.row,i.col)){
+		if (!isOk(i.row,i.col,c)){
 			return false;
 		}
 	}
