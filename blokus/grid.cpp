@@ -129,6 +129,8 @@ bool Grid::isOk(int row, int col, Cell c) {
 }
 
 bool Grid::firstisOk(int row, int col, Cell c){
+	Cell p = c;
+	c = p;
 	return isNotOut(row, col);
 }
 

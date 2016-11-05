@@ -33,10 +33,10 @@ bool Player::playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> fu
 	
 	if (!moves.empty()){
 		std::random_shuffle(moves.begin(), moves.end());
-		srand((int)time(NULL)*2);
-		auto m = moves[rand()%moves.size()];
+		srand(static_cast<unsigned int>(time(NULL)*2));
+		auto m = moves[static_cast<unsigned long>(static_cast<unsigned long>(rand())%moves.size())];
 		grid->putShape(*m.s, m.row, m.col, m.o, cell, func, cornercheck);
-		int num = (int)(*(m.s)).data.size();
+		int num = static_cast<int>((*(m.s)).data.size());
 		shapes[num].erase(m.s);
 		moves.clear();
 		return true;
@@ -74,10 +74,10 @@ bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck
 	
 	if (!moves.empty()){
 		std::random_shuffle(moves.begin(), moves.end());
-		srand((int)time(NULL));
-		auto m = moves[rand()%moves.size()];
+		srand(static_cast<unsigned int>(time(NULL)));
+		auto m = moves[static_cast<unsigned long>(static_cast<unsigned long>(rand())%moves.size())];
 		grid->putShape(*m.s, m.row, m.col, m.o, cell, func, cornercheck);
-		int num = (int)(*(m.s)).data.size();
+		int num = static_cast<int>((*(m.s)).data.size());
 		shapes[num].erase(m.s);
 		moves.clear();
 		if (verbose){
@@ -91,6 +91,8 @@ bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck
 
 	return false;
 }
+
+
 
 void Player::initplay(Corner c, int size, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck){
 	switch (c){

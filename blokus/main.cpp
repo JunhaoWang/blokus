@@ -51,7 +51,7 @@ static const Shape lshapesmallmiddle({Coordinate(0, 0),Coordinate(0, 1),Coordina
 //	return g->firstisOk(row, col, c);
 //}
 
-int main(int argc, const char * argv[]) {
+int main() {
 	int s = 20;
 	bool verbose = true;
 	bool slow = true;
