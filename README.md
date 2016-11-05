@@ -25,4 +25,7 @@ human player interface - NOT STARTED
 
 Refactor code for future dev - NOT STARTED
 
+# how to run
+g++ -std=c++11 -Wall -Werror -pedantic -Wextra -Wconversion -O3 main.cpp grid.cpp shape.cpp player.cpp game.cpp -o blokus && ./blokus
+
 
