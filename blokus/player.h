@@ -22,12 +22,13 @@ enum class Corner{
 	Downright
 };
 
+
 struct Move{
-	Shape s;
+	std::vector<Shape>::iterator s;
 	int row;
 	int col;
 	Orientation o;
-	Move(Shape &sin, int rowin, int colin, Orientation oin):s(sin),row(rowin),col(colin),o(oin){}
+	Move(std::vector<Shape>::iterator sin, int rowin, int colin, Orientation oin):s(sin),row(rowin),col(colin),o(oin){}
 };
 
 
@@ -41,8 +42,8 @@ public:
 	
 	Grid *grid;
 	Cell cell;
-	std::map<int, std::vector<Shape>, std::greater<int>> shapes;
 	std::vector<Move> moves;
+	std::map<int, std::vector<Shape>, std::greater<int>> shapes;
 	std::vector<Orientation> orients = {Orientation::UpPos,
 		Orientation::UpNeg,
 		Orientation::RightPos,

@@ -51,7 +51,7 @@ bool firstisOk(int row, int col, Cell c, Grid *g){
 }
 
 int main(int argc, const char * argv[]) {
-	int s = 30;
+	int s = 20;
 	Grid* grid = new Grid(s);
 	vector<Shape> one {one_cell};
 	vector<Shape> two {two_cell};

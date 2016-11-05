@@ -52,8 +52,16 @@ void Grid::win(){
 			maxnum = it->second;
 			winner = it->first;
 		}
+		std::cout<<it->first<<" has "<<it->second<<'\n';
 	}
-	std::cout<<winner<<" win"<<'\n'<<"game finished"<<'\n'<<std::endl;
+	
+	std::cout<<'\n';
+	
+	if (counter["blue"]==counter["red"] && counter["green"]==counter["yellow"] && counter["green"]==counter["red"]){
+		std::cout<<"tie"<<'\n'<<std::endl;
+		return;
+	}
+	std::cout<<winner<<" win"<<'\n'<<'\n'<<"game finished"<<'\n'<<std::endl;
 }
 
 bool Grid::isOccupied(int row, int col) {
