@@ -36,9 +36,13 @@ public:
 	
 	void play(){
 		red.initplay(Corner::Upleft, grid->size, firstisOk, false);
+		grid->print();
 		blue.initplay(Corner::Upright, grid->size, firstisOk, false);
+		grid->print();
 		green.initplay(Corner::Downleft, grid->size, firstisOk, false);
+		grid->print();
 		yellow.initplay(Corner::Downright, grid->size, firstisOk, false);
+		grid->print();
 		while (red.play(isOk, true, verbose, slow) && blue.play(isOk, true, verbose, slow) && green.play(isOk, true, verbose, slow) && yellow.play(isOk, true, verbose, slow)){
 			
 		}

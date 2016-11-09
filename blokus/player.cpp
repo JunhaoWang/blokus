@@ -35,9 +35,6 @@ bool Player::playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> fu
 	strategy->addmoves(moves);
 	
 	if (!moves.empty()){
-//		std::random_shuffle(moves.begin(), moves.end());
-//		srand(static_cast<unsigned int>(time(NULL)*2));
-//		auto m = moves[static_cast<unsigned long>(static_cast<unsigned long>(rand())%moves.size())];
 		auto m = strategy->getmove();
 		grid->putShape(*m.s, m.row, m.col, m.o, cell, func, cornercheck);
 		int num = static_cast<int>((*(m.s)).data.size());

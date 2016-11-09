@@ -18,7 +18,7 @@ public:
 	virtual Move getmove() {
 		std::random_shuffle(allmoves.back().begin(),allmoves.back().end());
 		srand(static_cast<unsigned int>(time(NULL)));
-		std::cout<<allmoves.size()<<'\n'<<'\n';
+		std::cout<<"random move "<<allmoves.size()<<'\n'<<'\n';
 		return allmoves.back()[static_cast<unsigned long>(static_cast<unsigned long>(rand())%allmoves.back().size())];
 	}
 };

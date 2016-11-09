@@ -64,8 +64,8 @@ int main() {
 	
 	map<int, vector<Shape>, greater<int>> m {{1,one}, {2,two}, {3,three}, {4,four}, {5,five}};
 	
-	Strategy_Random* sr = new Strategy_Random;
-	
+//	Strategy_Random* sr = new Strategy_Random;
+	Strategy_MCMC* sr = new Strategy_MCMC;
 	int numgame = 1;
 	
 	while (true){
@@ -77,6 +77,7 @@ int main() {
 		Player yellow (grid, Cell::Yellow, m, sr);
 		Game game (grid,red,green,blue,yellow,verbose,slow);
 		game.play();
+		sr->allmoves.clear();
 		numgame++;
 	}
 	

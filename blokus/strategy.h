@@ -22,7 +22,7 @@ struct Move{
 class Strategy{
 public:
 	std::vector<std::vector<Move>> allmoves;
-	void addmoves(std::vector<Move> ms) {
+	virtual void addmoves(std::vector<Move> ms) {
 		allmoves.push_back(ms);
 	}
 	virtual Move getmove() = 0;

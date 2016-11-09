@@ -15,6 +15,7 @@
 #include "shape.h"
 #include "grid.h"
 #include "strategy:random.h"
+#include "strategy:MCMC.h"
 
 enum class Corner{
 	Upleft,
