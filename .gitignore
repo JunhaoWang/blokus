@@ -4,3 +4,8 @@
 # Xcode
 *.xcodeproj/
 DerivedData/
+
+# CMake
+build/
+build_debug/
+build_release/
