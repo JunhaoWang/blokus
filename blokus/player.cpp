@@ -17,6 +17,7 @@
 #include <thread>
 
 #include "player.h"
+#include "strategy.h"
 
 bool Player::playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck){
 	for (auto& skey: shapes){
@@ -31,10 +32,10 @@ bool Player::playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> fu
 	
 //	std::cout<<"initial found "<<moves.size()<<" moves"<<'\n';
 	
+	strategy->addmoves(moves);
+	
 	if (!moves.empty()){
-		std::random_shuffle(moves.begin(), moves.end());
-		srand(static_cast<unsigned int>(time(NULL)*2));
-		auto m = moves[static_cast<unsigned long>(static_cast<unsigned long>(rand())%moves.size())];
+		auto m = strategy->getmove();
 		grid->putShape(*m.s, m.row, m.col, m.o, cell, func, cornercheck);
 		int num = static_cast<int>((*(m.s)).data.size());
 		shapes[num].erase(m.s);
@@ -45,17 +46,7 @@ bool Player::playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> fu
 	return false;
 }
 
-/*
- 
- struct Move{
-	Shape s;
-	int row;
-	int col;
-	Orientation o;
-	Move(Shape &sin, int rowin, int colin, Orientation oin):s(sin),row(rowin),col(colin),o(oin){}
- };
- 
- */
+
 
 bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck, bool verbose, bool slow){
 	for (auto& skey: shapes){
@@ -70,12 +61,10 @@ bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck
 		}
 	}
 	
-//	std::cout<<"found "<<moves.size()<<" moves"<<'\n';
+	strategy->addmoves(moves);
 	
 	if (!moves.empty()){
-		std::random_shuffle(moves.begin(), moves.end());
-		srand(static_cast<unsigned int>(time(NULL)));
-		auto m = moves[static_cast<unsigned long>(static_cast<unsigned long>(rand())%moves.size())];
+		auto m = strategy->getmove();
 		grid->putShape(*m.s, m.row, m.col, m.o, cell, func, cornercheck);
 		int num = static_cast<int>((*(m.s)).data.size());
 		shapes[num].erase(m.s);
@@ -88,7 +77,6 @@ bool Player::play(std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck
 		}
 		return true;
 	}
-
 	return false;
 }
 

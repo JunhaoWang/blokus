@@ -14,6 +14,8 @@
 
 #include "shape.h"
 #include "grid.h"
+#include "strategy:random.h"
+#include "strategy:MCMC.h"
 
 enum class Corner{
 	Upleft,
@@ -23,18 +25,9 @@ enum class Corner{
 };
 
 
-struct Move{
-	std::vector<Shape>::iterator s;
-	int row;
-	int col;
-	Orientation o;
-	Move(std::vector<Shape>::iterator sin, int rowin, int colin, Orientation oin):s(sin),row(rowin),col(colin),o(oin){}
-};
-
-
 class Player{
 public:
-	Player(Grid *gin, Cell cellin, std::map<int, std::vector<Shape>, std::greater<int>> shapesin): grid(gin),cell(cellin),shapes(shapesin) {};
+	Player(Grid *gin, Cell cellin, std::map<int, std::vector<Shape>, std::greater<int>> shapesin, Strategy* strategyin): grid(gin),cell(cellin),shapes(shapesin), strategy(strategyin) {};
 	
 	bool play(std::function<bool(int,int,Cell,Grid* g)> func, bool cornercheck, bool verbose, bool slow);
 	bool playat(int row, int col, std::function<bool(int,int,Cell,Grid*)> func, bool cornercheck);
@@ -42,6 +35,7 @@ public:
 	
 	Grid *grid;
 	Cell cell;
+	Strategy *strategy;
 	std::vector<Move> moves;
 	std::map<int, std::vector<Shape>, std::greater<int>> shapes;
 	std::vector<Orientation> orients = {Orientation::UpPos,
